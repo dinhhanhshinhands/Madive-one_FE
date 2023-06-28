@@ -1,3 +1,6 @@
 {
-  "fieldRequire": "이 필드는 필수입니다"
+  "uppercase": "{{value, uppercase}}",
+  "capitalize": "{{value, capitalize}}",
+  "lowercase": "{{value, lowercase}}",
+  "This field is required": "이 필드는 필수입니다"
 }

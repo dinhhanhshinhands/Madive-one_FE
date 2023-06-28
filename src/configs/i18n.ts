@@ -11,7 +11,7 @@ i18n
     resourcesToBackend((language, namespace, callback) => {
       import(`../locales/${language}/${namespace}.json`)
         .then((resources) => {
-          callback(null, resources);
+          callback(null, resources.default);
         })
         .catch((error) => {
           callback(error, null);
@@ -20,9 +20,21 @@ i18n
   )
   .init({
     fallbackLng: 'en',
-    nsSeparator: ':',
+    nsSeparator: false,
+    keySeparator: false,
     interpolation: {
       escapeValue: false,
+      format: function (value, format, lgn) {
+        if (lgn === 'kr') {
+          return value;
+        }
+
+        if (format === 'uppercase') return value.toUpperCase();
+        if (format === 'lowercase') return value.toLowerCase();
+        if (format === 'capitalize') return `${value.substr(0, 1).toUpperCase()}${value.substr(1)}`;
+
+        return value;
+      },
     },
   });
 

@@ -28,7 +28,8 @@ const loginFormInitValues = {
 };
 
 const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
-  const { t } = useTranslation(['common', 'login']);
+  const { t: commonTranslation } = useTranslation('common');
+  const { t: loginTranslation } = useTranslation('login');
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -60,40 +61,41 @@ const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
           onFinish={onSubmitForm}
           initialValues={loginFormInitValues}
         >
-          <h2 className="tw-text-3xl tw-text-center">Madive {t('login:login')}</h2>
+          <h2 className="tw-text-3xl tw-text-center">Madive {loginTranslation('Login')}</h2>
           <Form.Item
             name="email"
-            rules={[{ required: true, message: t('common:fieldRequire') }]}
+            rules={[{ required: true, message: commonTranslation('This field is required') }]}
           >
             <StyledFormItem
               prefix={<MailOutlined className="tw-mr-2" />}
-              placeholder={`${t('login:enterEmail')} (ex: master@madive.co.kr)`}
+              placeholder={`${loginTranslation('Enter your email address')} (ex: master@madive.co.kr)`}
             />
           </Form.Item>
           <Form.Item
             name="password"
-            rules={[{ required: true, message: t('common:fieldRequire') }]}
+            rules={[{ required: true, message: commonTranslation('This field is required') }]}
           >
             <StyledFormItem
               type="password"
               prefix={<LockOutlined className="mr-2" />}
-              placeholder={t('login:password')}
+              placeholder={loginTranslation('Password')}
+              // placeholder={commonTranslation('capitalize', { value: loginTranslation('Password') })}
             />
           </Form.Item>
           <Form.Item
             name="rememberEmail"
             valuePropName="checked"
           >
-            <Checkbox>{t('login:rememberEmail')}</Checkbox>
+            <Checkbox>{loginTranslation('Remember Email')}</Checkbox>
           </Form.Item>
           <Form.Item>
             <Button
-              className="tw-w-full tw-h-10 tw-bg-gray-600 tw-text-white"
+              className="tw-w-full tw-h-10 tw-bg-gray-600 tw-text-white tw-capitalize"
               htmlType="submit"
             >
-              {t('login:login')}
+              {loginTranslation('Login')}
             </Button>
-            {!isAdmin && <div className="tw-mt-3">{t('login:findPassword')}</div>}
+            {!isAdmin && <div className="tw-mt-3">{loginTranslation('Find password')}</div>}
           </Form.Item>
         </StyledForm>
       </div>

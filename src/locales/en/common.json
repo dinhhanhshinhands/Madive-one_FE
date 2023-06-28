@@ -1,3 +1,6 @@
 {
-  "fieldRequire": "This field is required"
+  "uppercase": "{{value, uppercase}}",
+  "capitalize": "{{value, capitalize}}",
+  "lowercase": "{{value, lowercase}}",
+  "This field is required": "This field is required"
 }
