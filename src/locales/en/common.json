@@ -2,5 +2,6 @@
   "uppercase": "{{value, uppercase}}",
   "capitalize": "{{value, capitalize}}",
   "lowercase": "{{value, lowercase}}",
-  "This field is required": "This field is required"
+  "This field is required": "This field is required",
+  "This field is not a valid email": "This field is not a valid email"
 }

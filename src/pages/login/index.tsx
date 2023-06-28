@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Image, Row } from 'antd';
 
+import { useLogin } from '@/apis/hooks/auth';
 import { useAuth } from '@/utils/hooks/useAuth';
 
-import { StyledForm, StyledFormItem } from '@/pages/login/styled';
-import { paths } from '@/routes/routes';
+import { EMAIL_KEY } from '@/constants';
+import { StyledInput, StyledInputPassword } from '@/pages/login/styled';
 
 const loginLogo = '/src/assets/images/logo.png';
 
@@ -30,15 +31,36 @@ const loginFormInitValues = {
 const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
   const { t: commonTranslation } = useTranslation('common');
   const { t: loginTranslation } = useTranslation('login');
-  const { login } = useAuth();
   const navigate = useNavigate();
+  const { login } = useAuth();
+  const [form] = Form.useForm<LoginFormType>();
+  const { isLoading, mutate } = useLogin();
 
-  const onSubmitForm = (formValues: unknown) => {
-    console.log('formValues', formValues);
+  const onSubmitForm = (formValues: LoginFormType) => {
+    if (formValues.rememberEmail) {
+      localStorage.setItem(EMAIL_KEY, formValues.email);
+    } else {
+      localStorage.removeItem(EMAIL_KEY);
+    }
 
-    login(isAdmin);
+    mutate(
+      {
+        email: formValues.email,
+        password: formValues.password,
+      },
+      {
+        onError: (err) => {
+          console.log('login error', err);
+        },
+        onSuccess: () => {
+          console.log('login success');
+        },
+      }
+    );
 
-    navigate(isAdmin ? paths.admin.index : paths.apo.index, { replace: true });
+    // login(isAdmin);
+
+    // navigate(isAdmin ? paths.admin.index : paths.apo.index, { replace: true });
   };
 
   return (
@@ -57,16 +79,21 @@ const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
         </Row>
       </div>
       <div className="tw-flex tw-items-center tw-justify-center tw-h-screen">
-        <StyledForm
+        <Form<LoginFormType>
+          className="tw-w-1/4"
+          form={form}
           onFinish={onSubmitForm}
           initialValues={loginFormInitValues}
         >
           <h2 className="tw-text-3xl tw-text-center">Madive {loginTranslation('Login')}</h2>
           <Form.Item
             name="email"
-            rules={[{ required: true, message: commonTranslation('This field is required') }]}
+            rules={[
+              { required: true, message: commonTranslation('This field is required') },
+              // { type: 'email', message: commonTranslation('This field is not a valid email') },
+            ]}
           >
-            <StyledFormItem
+            <StyledInput
               prefix={<MailOutlined className="tw-mr-2" />}
               placeholder={`${loginTranslation('Enter your email address')} (ex: master@madive.co.kr)`}
             />
@@ -75,9 +102,8 @@ const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
             name="password"
             rules={[{ required: true, message: commonTranslation('This field is required') }]}
           >
-            <StyledFormItem
-              type="password"
-              prefix={<LockOutlined className="mr-2" />}
+            <StyledInputPassword
+              prefix={<LockOutlined className="tw-mr-2" />}
               placeholder={loginTranslation('Password')}
               // placeholder={commonTranslation('capitalize', { value: loginTranslation('Password') })}
             />
@@ -92,12 +118,14 @@ const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
             <Button
               className="tw-w-full tw-h-10 tw-bg-gray-600 tw-text-white tw-capitalize"
               htmlType="submit"
+              loading={isLoading}
+              disabled={isLoading}
             >
               {loginTranslation('Login')}
             </Button>
             {!isAdmin && <div className="tw-mt-3">{loginTranslation('Find password')}</div>}
           </Form.Item>
-        </StyledForm>
+        </Form>
       </div>
     </div>
   );
