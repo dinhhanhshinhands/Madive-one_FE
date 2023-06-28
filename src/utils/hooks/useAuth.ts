@@ -1,5 +1,5 @@
 export const useAuth = () => {
-  //TODO: Hardocode for demo
+  //TODO: Hardcode for demo
   const login = (isAdmin: boolean) => {
     localStorage.setItem('role', isAdmin ? 'admin' : 'user');
   };
@@ -12,6 +12,7 @@ export const useAuth = () => {
     const role = localStorage.getItem('role');
     return role === 'admin';
   };
+
   return {
     login,
     logout,
