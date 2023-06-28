@@ -1,12 +1,10 @@
+import { Routes } from 'react-router-dom';
+
+import { generateRoute } from '@/routes/generateRoute';
+import { adminRoutes } from '@/routes/routes';
+
 const AdminRoutes = () => {
-  return (
-    <>
-      {/* <Route
-        path={paths.admin.login}
-        element={<Login />}
-      /> */}
-    </>
-  );
+  return <Routes>{generateRoute(adminRoutes)}</Routes>;
 };
 
 export default AdminRoutes;

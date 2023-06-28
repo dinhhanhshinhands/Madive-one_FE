@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { FolderOutlined } from '@ant-design/icons';
 import { Button, Col, Collapse, Image, Menu, MenuProps, Row } from 'antd';
@@ -41,7 +41,7 @@ const AdminSidebar = () => {
   };
 
   const renderMenuItem = (menuItem: RouteItem, isParentMenu = false): MenuItem => {
-    const { key, translateKey, child } = menuItem;
+    const { key, translateKey, child, path } = menuItem;
     let children;
     if (child?.length) {
       children = child.map((route) => {
@@ -51,7 +51,7 @@ const AdminSidebar = () => {
     return {
       key: key,
       children: children,
-      label: translateKey,
+      label: path ? <Link to={path}>{translateKey}</Link> : translateKey,
       icon: isParentMenu ? <FolderOutlined /> : undefined,
       className: isParentMenu ? 'admin-parent-menu' : 'admin-child-menu',
     } as MenuItem;
