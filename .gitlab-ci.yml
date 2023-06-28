@@ -1,0 +1,11 @@
+variables:
+  GIT_STRATEGY: clone
+
+job1:
+  script:
+    - yarn
+    - echo "Installed packages"
+    - yarn build:staging
+    - echo "Build success"
+  only:
+    - merge_requests
