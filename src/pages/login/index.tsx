@@ -6,7 +6,7 @@ import { Button, Checkbox, Form, Image, Row } from 'antd';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 
-import { StyledForm, StyledFormItem } from '@/pages/login/styled';
+import { StyledFormItem } from '@/pages/login/styled';
 import { paths } from '@/routes/routes';
 
 const loginLogo = '/src/assets/images/logo.png';
@@ -21,24 +21,25 @@ type LoginFormType = {
   rememberEmail: boolean;
 };
 
-const loginFormInitValues = {
+const loginFormInitValues: LoginFormType = {
   email: '',
   password: '',
   rememberEmail: true,
 };
+
+const { useForm } = Form;
 
 const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
   const { t } = useTranslation(['common', 'login']);
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const onSubmitForm = (formValues: unknown) => {
-    console.log('formValues', formValues);
-
+  const onSubmitForm = (formValues: LoginFormType) => {
     login(isAdmin);
-
     navigate(isAdmin ? paths.admin.index : paths.apo.index, { replace: true });
   };
+
+  const [loginForm] = useForm<LoginFormType>();
 
   return (
     <div className="tw-relative">
@@ -56,9 +57,11 @@ const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
         </Row>
       </div>
       <div className="tw-flex tw-items-center tw-justify-center tw-h-screen">
-        <StyledForm
+        <Form<LoginFormType>
+          form={loginForm}
           onFinish={onSubmitForm}
           initialValues={loginFormInitValues}
+          className="tw-w-1/4"
         >
           <h2 className="tw-text-3xl tw-text-center">Madive {t('login:login')}</h2>
           <Form.Item
@@ -91,11 +94,11 @@ const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
               className="tw-w-full tw-h-10 tw-bg-gray-600 tw-text-white"
               htmlType="submit"
             >
-              {t('login:login')}
+              {t('field is required')}
             </Button>
             {!isAdmin && <div className="tw-mt-3">{t('login:findPassword')}</div>}
           </Form.Item>
-        </StyledForm>
+        </Form>
       </div>
     </div>
   );

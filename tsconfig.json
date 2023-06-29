@@ -25,6 +25,6 @@
       "@/*": ["./src/*", ""]
     }
   },
-  "include": ["src"],
+  "include": ["src", "./generate-api.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
