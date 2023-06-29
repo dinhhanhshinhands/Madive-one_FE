@@ -12,13 +12,13 @@ import { paths } from '@/routes/routes';
 
 const { Header, Content, Footer, Sider: SiderWrapper } = Layout;
 
-const AdminLayout = () => {
+const UserLayout = () => {
   const navigate = useNavigate();
   const { isAdmin } = useAuth();
 
   useEffect(() => {
     if (!isAdmin()) {
-      navigate(paths.admin.login);
+      navigate(paths.apo.login);
     }
   }, []);
 
@@ -37,4 +37,4 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+export default UserLayout;

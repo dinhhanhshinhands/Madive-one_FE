@@ -1,20 +1,21 @@
+import { ADMIN_ROLE_KEY, ROLE_KEY } from '@/constants';
+
 export const useAuth = () => {
-  //TODO: Hardcode for demo
-  const login = (isAdmin: boolean) => {
-    localStorage.setItem('role', isAdmin ? 'admin' : 'user');
+  const loggedIn = (role: string) => {
+    localStorage.setItem(ROLE_KEY, role);
   };
 
   const logout = () => {
-    localStorage.removeItem('role');
+    localStorage.removeItem(ROLE_KEY);
   };
 
   const isAdmin = (): boolean => {
-    const role = localStorage.getItem('role');
-    return role === 'admin';
+    const role = localStorage.getItem(ROLE_KEY);
+    return role === ADMIN_ROLE_KEY;
   };
 
   return {
-    login,
+    loggedIn,
     logout,
     isAdmin,
   };

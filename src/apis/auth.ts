@@ -7,7 +7,7 @@ import { AUTHENTICATION } from '@/constants/endpoints';
 export const loginMutation = {
   name: 'login',
   fn: async (data: LoginEntity): Promise<LoginDto> => {
-    const responseData = getResponseData<LoginDto>(await getAxiosInstance().post(AUTHENTICATION.login, { data }));
+    const responseData = getResponseData<LoginDto>(await getAxiosInstance().post(AUTHENTICATION.login, { ...data }));
 
     return responseData;
   },

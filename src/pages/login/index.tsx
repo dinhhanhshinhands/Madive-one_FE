@@ -7,8 +7,9 @@ import { Button, Checkbox, Form, Image, Row } from 'antd';
 import { useLogin } from '@/apis/hooks/auth';
 import { useAuth } from '@/utils/hooks/useAuth';
 
-import { EMAIL_KEY } from '@/constants';
+import { ADMIN_ROLE_KEY, EMAIL_KEY, USER_ROLE_KEY } from '@/constants';
 import { StyledInput, StyledInputPassword } from '@/pages/login/styled';
+import { paths } from '@/routes/routes';
 
 const loginLogo = '/src/assets/images/logo.png';
 
@@ -32,7 +33,7 @@ const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
   const { t: commonTranslation } = useTranslation('common');
   const { t: loginTranslation } = useTranslation('login');
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { loggedIn } = useAuth();
   const [form] = Form.useForm<LoginFormType>();
   const { isLoading, mutate } = useLogin();
 
@@ -49,18 +50,15 @@ const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
         password: formValues.password,
       },
       {
+        onSuccess: () => {
+          loggedIn(isAdmin ? ADMIN_ROLE_KEY : USER_ROLE_KEY);
+          navigate(isAdmin ? paths.admin.index : paths.apo.index, { replace: true });
+        },
         onError: (err) => {
           console.log('login error', err);
         },
-        onSuccess: () => {
-          console.log('login success');
-        },
       }
     );
-
-    // login(isAdmin);
-
-    // navigate(isAdmin ? paths.admin.index : paths.apo.index, { replace: true });
   };
 
   return (
@@ -90,7 +88,7 @@ const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
             name="email"
             rules={[
               { required: true, message: commonTranslation('This field is required') },
-              // { type: 'email', message: commonTranslation('This field is not a valid email') },
+              { type: 'email', message: commonTranslation('This field is not a valid email') },
             ]}
           >
             <StyledInput

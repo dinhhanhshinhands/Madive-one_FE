@@ -2,6 +2,10 @@ import axios, { Axios, AxiosError, AxiosResponse } from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
+  headers: {
+    Accept: '*/*',
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
   timeout: 10000,
 });
 

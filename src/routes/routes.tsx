@@ -1,11 +1,11 @@
 import { RouteItem } from '@/utils/types/route';
 
-import CompanyManagement from '@/pages/admin/company/CompanyManagement';
-import CompanyRegister from '@/pages/admin/company/CompanyRegister';
-import ManagerManagement from '@/pages/admin/manager/ManagerManagement';
-import MenuManagement from '@/pages/admin/menu/MenuManagement';
-import StoreMenus from '@/pages/admin/store/StoreMenus';
-import StoreRegister from '@/pages/admin/store/StoreRegister';
+import CompanyManagement from '@/pages/company/CompanyManagement';
+import CompanyRegister from '@/pages/company/CompanyRegister';
+import ManagerManagement from '@/pages/manager/ManagerManagement';
+import MenuManagement from '@/pages/menu/MenuManagement';
+import StoreMenus from '@/pages/store/StoreMenus';
+import StoreRegister from '@/pages/store/StoreRegister';
 
 const publicRoutes: RouteItem[] = [
   // {
@@ -24,13 +24,13 @@ const adminRoutes: RouteItem[] = [
         key: 'companyInformation',
         translateKey: '업체정보',
         element: <CompanyManagement />,
-        path: 'admin/company/list',
+        path: 'company/list',
       },
       {
         key: 'companyRegister',
         translateKey: '업체등록',
         element: <CompanyRegister />,
-        path: 'admin/company/register',
+        path: 'company/register',
       },
     ],
   },
