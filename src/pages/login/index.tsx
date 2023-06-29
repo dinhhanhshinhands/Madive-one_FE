@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Image, Row } from 'antd';
 
+import { useLogin } from '@/apis/hooks/auth';
 import { useAuth } from '@/utils/hooks/useAuth';
 
-import { StyledFormItem } from '@/pages/login/styled';
+import { ADMIN_ROLE_KEY, EMAIL_KEY, USER_ROLE_KEY } from '@/constants';
+import { StyledInput, StyledInputPassword } from '@/pages/login/styled';
 import { paths } from '@/routes/routes';
 
 const loginLogo = '/src/assets/images/logo.png';
@@ -21,25 +23,46 @@ type LoginFormType = {
   rememberEmail: boolean;
 };
 
-const loginFormInitValues: LoginFormType = {
+const loginFormInitValues = {
   email: '',
   password: '',
   rememberEmail: true,
 };
 
-const { useForm } = Form;
-
 const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
-  const { t } = useTranslation(['common', 'login']);
-  const { login } = useAuth();
+  const { t: commonTranslation } = useTranslation('common');
+  const { t: loginTranslation } = useTranslation('login');
   const navigate = useNavigate();
+  const { login } = useAuth();
+  const [form] = Form.useForm<LoginFormType>();
+  const { isLoading, mutate } = useLogin();
 
   const onSubmitForm = (formValues: LoginFormType) => {
-    login(isAdmin);
-    navigate(isAdmin ? paths.admin.index : paths.apo.index, { replace: true });
-  };
+    if (formValues.rememberEmail) {
+      localStorage.setItem(EMAIL_KEY, formValues.email);
+    } else {
+      localStorage.removeItem(EMAIL_KEY);
+    }
 
-  const [loginForm] = useForm<LoginFormType>();
+    // mutate(
+    //   {
+    //     email: formValues.email,
+    //     password: formValues.password,
+    //   },
+    //   {
+    //     onSuccess: () => {
+    //       login(isAdmin ? ADMIN_ROLE_KEY : USER_ROLE_KEY);
+    //       navigate(isAdmin ? paths.admin.index : paths.user.index, { replace: true });
+    //     },
+    //     onError: (err) => {
+    //       console.log('login error', err);
+    //     },
+    //   }
+    // );
+
+    login(isAdmin ? ADMIN_ROLE_KEY : USER_ROLE_KEY);
+    navigate(isAdmin ? paths.admin.index : paths.user.index, { replace: true });
+  };
 
   return (
     <div className="tw-relative">
@@ -58,45 +81,50 @@ const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
       </div>
       <div className="tw-flex tw-items-center tw-justify-center tw-h-screen">
         <Form<LoginFormType>
-          form={loginForm}
+          className="tw-w-1/4"
+          form={form}
           onFinish={onSubmitForm}
           initialValues={loginFormInitValues}
-          className="tw-w-1/4"
         >
-          <h2 className="tw-text-3xl tw-text-center">Madive {t('login:login')}</h2>
+          <h2 className="tw-text-3xl tw-text-center">Madive {loginTranslation('Login')}</h2>
           <Form.Item
             name="email"
-            rules={[{ required: true, message: t('common:fieldRequire') }]}
+            rules={[
+              { required: true, message: commonTranslation('This field is required') },
+              { type: 'email', message: commonTranslation('This field is not a valid email') },
+            ]}
           >
-            <StyledFormItem
+            <StyledInput
               prefix={<MailOutlined className="tw-mr-2" />}
-              placeholder={`${t('login:enterEmail')} (ex: master@madive.co.kr)`}
+              placeholder={`${loginTranslation('Enter your email address')} (ex: master@madive.co.kr)`}
             />
           </Form.Item>
           <Form.Item
             name="password"
-            rules={[{ required: true, message: t('common:fieldRequire') }]}
+            rules={[{ required: true, message: commonTranslation('This field is required') }]}
           >
-            <StyledFormItem
-              type="password"
-              prefix={<LockOutlined className="mr-2" />}
-              placeholder={t('login:password')}
+            <StyledInputPassword
+              prefix={<LockOutlined className="tw-mr-2" />}
+              placeholder={loginTranslation('Password')}
+              // placeholder={commonTranslation('capitalize', { value: loginTranslation('Password') })}
             />
           </Form.Item>
           <Form.Item
             name="rememberEmail"
             valuePropName="checked"
           >
-            <Checkbox>{t('login:rememberEmail')}</Checkbox>
+            <Checkbox>{loginTranslation('Remember Email')}</Checkbox>
           </Form.Item>
           <Form.Item>
             <Button
-              className="tw-w-full tw-h-10 tw-bg-gray-600 tw-text-white"
+              className="tw-w-full tw-h-10 tw-bg-gray-600 tw-text-white tw-capitalize"
               htmlType="submit"
+              loading={isLoading}
+              disabled={isLoading}
             >
-              {t('field is required')}
+              {loginTranslation('Login')}
             </Button>
-            {!isAdmin && <div className="tw-mt-3">{t('login:findPassword')}</div>}
+            {!isAdmin && <div className="tw-mt-3">{loginTranslation('Find password')}</div>}
           </Form.Item>
         </Form>
       </div>
