@@ -3,8 +3,6 @@ import { Route } from 'react-router-dom';
 import { RouteItem } from '@/utils/types/route';
 
 export const generateRoute = (routes: RouteItem[]): React.ReactNode => {
-  // eslint-disable-next-line no-debugger
-  debugger;
   return routes.map((route) => (
     <>
       {route.path && (

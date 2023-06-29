@@ -1,3 +1,7 @@
 {
-  "fieldRequire": "이 필드는 필수입니다"
+  "uppercase": "{{value, uppercase}}",
+  "capitalize": "{{value, capitalize}}",
+  "lowercase": "{{value, lowercase}}",
+  "This field is required": "이 필드는 필수입니다",
+  "This field is not a valid email": "이 필드는 유효한 이메일이 아닙니다"
 }

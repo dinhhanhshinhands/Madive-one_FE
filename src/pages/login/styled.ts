@@ -5,11 +5,22 @@ const StyledForm = styled(Form)`
   width: 400px;
 `;
 
-const StyledFormItem = styled(Input)`
+const StyledInput = styled(Input)`
   border-radius: 0;
   border: none;
   border-bottom: 1px solid #585858;
   padding: 10px;
 `;
 
-export { StyledForm, StyledFormItem };
+const StyledInputPassword = styled(Input.Password)`
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #585858;
+  padding: 10px;
+  span.ant-input-prefix {
+    width: 22px;
+    height: 22px;
+  }
+`;
+
+export { StyledForm, StyledInput, StyledInputPassword };

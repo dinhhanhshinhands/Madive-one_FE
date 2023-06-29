@@ -1,7 +1,7 @@
 {
-  "login": "Login",
-  "password": "Password",
-  "enterEmail": "Enter your email address",
-  "rememberEmail": "Remember Email",
-  "findPassword": "Find password"
+  "Login": "login",
+  "Password": "Password",
+  "Enter your email address": "Enter your email address",
+  "Remember Email": "Remember Email",
+  "Find password": "Find password"
 }

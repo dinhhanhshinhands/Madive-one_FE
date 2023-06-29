@@ -1,24 +1,18 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-import Login from '@/pages/login';
+import UserLayout from '@/layouts/user';
 import AdminRoutes from '@/routes/admin/AdminRoutes';
-import { paths } from '@/routes/routes';
+import { publicRoutes } from '@/routes/routes';
+import { renderRoute } from '@/routes/utils';
 
-const AdminLayout = lazy(() => import('../pages/admin'));
+const AdminLayout = lazy(() => import('../layouts/admin'));
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path={paths.apo.login}
-          element={<Login />}
-        />
-        <Route
-          path={paths.admin.login}
-          element={<Login isAdmin />}
-        />
+        {/* Admin routes */}
         <Route
           path="/admin"
           element={
@@ -31,9 +25,33 @@ const AppRoutes = () => {
             path="*"
             element={<AdminRoutes />}
           />
-          {/* {generateRoute(adminRoutes)} */}
+          <Route
+            path="*"
+            element={<Navigate to={'/admin'} />}
+          />
         </Route>
-        {/* <PublicRoutes /> */}
+
+        {/* User routes */}
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<></>}>
+              <UserLayout />
+            </Suspense>
+          }
+        >
+          <Route
+            path="*"
+            element={<AdminRoutes />}
+          />
+          <Route
+            path="*"
+            element={<Navigate to={'/'} />}
+          />
+        </Route>
+
+        {/* Public routes */}
+        {renderRoute(publicRoutes)}
       </Routes>
     </BrowserRouter>
   );
