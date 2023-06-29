@@ -8,4 +8,5 @@ module.exports = {
     preflight: false,
   },
   plugins: [],
+  important: true,
 };

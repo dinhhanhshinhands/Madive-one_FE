@@ -1,14 +1,32 @@
-import { Menu } from 'antd';
+import { Collapse, Menu } from 'antd';
 import { styled } from 'styled-components';
 
-const StyledMenu = styled(Menu)`
-  .ant-menu-submenu-title {
-    margin-inline: 0;
-    margin-block: 0;
-  }
-  .admin-child-menu {
-    padding-left: 24px !important;
+const StyledCollapse = styled(Collapse).withConfig({
+  shouldForwardProp: (prop) => ![''].includes(prop),
+})`
+  border: none;
+
+  .ant-collapse-item {
+    border: none;
+
+    .ant-collapse-header {
+      padding-bottom: 0;
+    }
+
+    .ant-collapse-content {
+      border: none;
+
+      .ant-collapse-content-box {
+        padding-top: 0;
+      }
+    }
   }
 `;
 
-export { StyledMenu };
+const StyledMenu = styled(Menu).withConfig({
+  shouldForwardProp: (prop) => ![''].includes(prop),
+})`
+  border-inline-end: none !important;
+`;
+
+export { StyledCollapse, StyledMenu };

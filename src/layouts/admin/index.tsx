@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
 import AdminHeader from '@/components/organisms/Header/AdminHeader';
-import AdminSidebar from '@/components/organisms/Sidebar/AdminSidebar';
+import AdminSidebar from '@/components/organisms/Sidebar/AdminSiderbar';
 import WithSidebar from '@/components/templates/WithSidebar';
 
 import { useAuth } from '@/utils/hooks/useAuth';
@@ -17,7 +17,7 @@ const AdminLayout = () => {
 
   return (
     <WithSidebar
-      sidebar={<AdminSidebar />}
+      sidebar={<AdminSidebar logoutPath={paths.admin.login} />}
       header={<AdminHeader />}
       content={<Outlet />}
     />

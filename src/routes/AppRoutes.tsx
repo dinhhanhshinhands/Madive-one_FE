@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
+import WithoutSidebar from '@/components/templates/WithoutSidebar';
+
 import UserLayout from '@/layouts/user';
 import AdminRoutes from '@/routes/admin/AdminRoutes';
 import { publicRoutes } from '@/routes/routes';
@@ -12,6 +14,18 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public routes */}
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<></>}>
+              <WithoutSidebar />
+            </Suspense>
+          }
+        >
+          {renderRoute(publicRoutes)}
+        </Route>
+
         {/* Admin routes */}
         <Route
           path="/admin"
@@ -49,9 +63,6 @@ const AppRoutes = () => {
             element={<Navigate to={'/'} />}
           />
         </Route>
-
-        {/* Public routes */}
-        {renderRoute(publicRoutes)}
       </Routes>
     </BrowserRouter>
   );

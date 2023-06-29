@@ -1,5 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ConfigProvider, theme } from 'antd';
+import { ThemeProvider } from 'styled-components';
+
+import themeConfig from '@/configs/theme';
 
 import { QUERY_CACHE_TIME_DEFAULT } from '@/constants/apis';
 import AppRoutes from '@/routes/AppRoutes';
@@ -16,10 +20,16 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
+  const test = theme.useToken();
+
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <AppRoutes />
+      <ConfigProvider theme={themeConfig}>
+        <ThemeProvider theme={{ antd: test.token }}>
+          <AppRoutes />
+        </ThemeProvider>
+      </ConfigProvider>
     </QueryClientProvider>
   );
 };

@@ -1,6 +1,11 @@
 import { ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { Layout } from 'antd';
+import { Image, Layout } from 'antd';
+
+import { StyledSider } from '@/components/templates/WithSidebar/styled';
+
+import sidebarLogo from '@/assets/images/logo.png';
 
 interface IWithSidebar {
   sidebar: ReactNode;
@@ -8,12 +13,30 @@ interface IWithSidebar {
   content: ReactNode;
 }
 
-const { Content, Sider: SiderWrapper } = Layout;
+const { Content } = Layout;
 
 const WithSidebar = ({ sidebar, header, content }: IWithSidebar) => {
+  const navigate = useNavigate();
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <SiderWrapper width="250px">{sidebar}</SiderWrapper>
+      <StyledSider
+        width="300"
+        className="tw-p-4"
+      >
+        <div className="tw-flex tw-flex-col">
+          <Image
+            className="tw-cursor-pointer"
+            src={sidebarLogo}
+            width={60}
+            preview={false}
+            onClick={() => {
+              navigate('/');
+            }}
+          />
+          {sidebar}
+        </div>
+      </StyledSider>
       <Layout>
         {header}
         <Content>{content}</Content>

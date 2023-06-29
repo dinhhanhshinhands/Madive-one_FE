@@ -1,10 +1,11 @@
+import { Fragment } from 'react';
 import { Route } from 'react-router-dom';
 
 import { RouteItem } from '@/utils/types/route';
 
 export const generateRoute = (routes: RouteItem[]): React.ReactNode => {
   return routes.map((route) => (
-    <>
+    <Fragment key={route.key}>
       {route.path && (
         <Route
           path={route.path}
@@ -15,6 +16,6 @@ export const generateRoute = (routes: RouteItem[]): React.ReactNode => {
         </Route>
       )}
       {route.child?.length && generateRoute(route.child)}
-    </>
+    </Fragment>
   ));
 };

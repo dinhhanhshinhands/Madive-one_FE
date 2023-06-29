@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
 import UserHeader from '@/components/organisms/Header/UserHeader';
-import UserSidebar from '@/components/organisms/Sidebar/UserSidebar';
+import UserSidebar from '@/components/organisms/Sidebar/UserSiderbar';
 import WithSidebar from '@/components/templates/WithSidebar';
 
 import { useAuth } from '@/utils/hooks/useAuth';
@@ -17,7 +17,7 @@ const UserLayout = () => {
 
   return (
     <WithSidebar
-      sidebar={<UserSidebar />}
+      sidebar={<UserSidebar logoutPath={paths.user.login} />}
       header={<UserHeader />}
       content={<Outlet />}
     />
