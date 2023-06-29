@@ -1,5 +1,11 @@
+import { Outlet } from 'react-router-dom';
+
 const WithoutSidebar = () => {
-  return <div>WithoutSidebar</div>;
+  return (
+    <>
+      <Outlet />
+    </>
+  );
 };
 
 export default WithoutSidebar;

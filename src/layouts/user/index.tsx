@@ -1,39 +1,26 @@
-import { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
-import { Layout } from 'antd';
-
-import AdminHeader from '@/components/organisms/Header/AdminHeader';
-import AdminSidebar from '@/components/organisms/Sidebar/AdminSidebar';
+import UserHeader from '@/components/organisms/Header/UserHeader';
+import UserSidebar from '@/components/organisms/Sidebar/UserSidebar';
+import WithSidebar from '@/components/templates/WithSidebar';
 
 import { useAuth } from '@/utils/hooks/useAuth';
 
 import { paths } from '@/routes/routes';
 
-const { Header, Content, Footer, Sider: SiderWrapper } = Layout;
-
 const UserLayout = () => {
-  const navigate = useNavigate();
-  const { isAdmin } = useAuth();
+  const { isLoggedIn, isUser } = useAuth();
 
-  useEffect(() => {
-    if (!isAdmin()) {
-      navigate(paths.apo.login);
-    }
-  }, []);
+  if (!isLoggedIn() || !isUser()) {
+    return <Navigate to={paths.user.login} />;
+  }
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <SiderWrapper width="250px">
-        <AdminSidebar />
-      </SiderWrapper>
-      <Layout>
-        <AdminHeader />
-        <Content>
-          <Outlet />
-        </Content>
-      </Layout>
-    </Layout>
+    <WithSidebar
+      sidebar={<UserSidebar />}
+      header={<UserHeader />}
+      content={<Outlet />}
+    />
   );
 };
 

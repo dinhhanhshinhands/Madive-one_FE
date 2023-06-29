@@ -1,5 +1,6 @@
 export const EMAIL_KEY = 'email';
 export const ROLE_KEY = 'role';
+export const SIGNED_KEY = 'isSigned';
 export const ADMIN_ROLE_KEY = 'admin';
 export const USER_ROLE_KEY = 'user';
 export const FORM_REQUIRED_MESSAGE = "'${label}' is required";

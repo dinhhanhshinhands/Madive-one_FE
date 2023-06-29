@@ -9,7 +9,7 @@ export const renderRoute = (routes: RouteItem[]): React.ReactNode => {
         path={route.path}
         element={route.element}
         key={route.path}
-        id={route.id}
+        id={route.key}
       >
         {route.child && renderRoute(route.child)}
         {/* {route.child && (

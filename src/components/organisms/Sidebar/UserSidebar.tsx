@@ -16,7 +16,7 @@ type MenuItem = Required<MenuProps>['items'][number];
 
 const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
 
-const AdminSidebar = () => {
+const UserSidebar = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -103,4 +103,4 @@ const AdminSidebar = () => {
   );
 };
 
-export default AdminSidebar;
+export default UserSidebar;

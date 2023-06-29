@@ -2,17 +2,23 @@ import { RouteItem } from '@/utils/types/route';
 
 import CompanyManagement from '@/pages/company/CompanyManagement';
 import CompanyRegister from '@/pages/company/CompanyRegister';
+import Login from '@/pages/login';
 import ManagerManagement from '@/pages/manager/ManagerManagement';
 import MenuManagement from '@/pages/menu/MenuManagement';
 import StoreMenus from '@/pages/store/StoreMenus';
 import StoreRegister from '@/pages/store/StoreRegister';
 
 const publicRoutes: RouteItem[] = [
-  // {
-  //   id: 'login',
-  //   path: '/login',
-  //   element: <Login />,
-  // },
+  {
+    key: 'userLogin',
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    key: 'adminLogin',
+    path: '/admin/login',
+    element: <Login isAdmin />,
+  },
 ];
 
 const adminRoutes: RouteItem[] = [
@@ -67,13 +73,13 @@ const adminRoutes: RouteItem[] = [
 ];
 
 const paths = {
-  apo: {
-    index: '/',
-    login: '/login',
-  },
   admin: {
     index: '/admin',
     login: '/admin/login',
+  },
+  user: {
+    index: '/',
+    login: '/login',
   },
 };
 

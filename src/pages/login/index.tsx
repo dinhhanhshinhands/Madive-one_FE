@@ -33,7 +33,7 @@ const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
   const { t: commonTranslation } = useTranslation('common');
   const { t: loginTranslation } = useTranslation('login');
   const navigate = useNavigate();
-  const { loggedIn } = useAuth();
+  const { login } = useAuth();
   const [form] = Form.useForm<LoginFormType>();
   const { isLoading, mutate } = useLogin();
 
@@ -44,21 +44,24 @@ const Login = ({ isAdmin = false }: LoginProps): JSX.Element => {
       localStorage.removeItem(EMAIL_KEY);
     }
 
-    mutate(
-      {
-        email: formValues.email,
-        password: formValues.password,
-      },
-      {
-        onSuccess: () => {
-          loggedIn(isAdmin ? ADMIN_ROLE_KEY : USER_ROLE_KEY);
-          navigate(isAdmin ? paths.admin.index : paths.apo.index, { replace: true });
-        },
-        onError: (err) => {
-          console.log('login error', err);
-        },
-      }
-    );
+    // mutate(
+    //   {
+    //     email: formValues.email,
+    //     password: formValues.password,
+    //   },
+    //   {
+    //     onSuccess: () => {
+    //       login(isAdmin ? ADMIN_ROLE_KEY : USER_ROLE_KEY);
+    //       navigate(isAdmin ? paths.admin.index : paths.user.index, { replace: true });
+    //     },
+    //     onError: (err) => {
+    //       console.log('login error', err);
+    //     },
+    //   }
+    // );
+
+    login(isAdmin ? ADMIN_ROLE_KEY : USER_ROLE_KEY);
+    navigate(isAdmin ? paths.admin.index : paths.user.index, { replace: true });
   };
 
   return (

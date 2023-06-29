@@ -2,9 +2,9 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import UserLayout from '@/layouts/user';
-import Login from '@/pages/login';
 import AdminRoutes from '@/routes/admin/AdminRoutes';
-import { paths } from '@/routes/routes';
+import { publicRoutes } from '@/routes/routes';
+import { renderRoute } from '@/routes/utils';
 
 const AdminLayout = lazy(() => import('../layouts/admin'));
 
@@ -51,14 +51,7 @@ const AppRoutes = () => {
         </Route>
 
         {/* Public routes */}
-        <Route
-          path={paths.apo.login}
-          element={<Login />}
-        />
-        <Route
-          path={paths.admin.login}
-          element={<Login isAdmin />}
-        />
+        {renderRoute(publicRoutes)}
       </Routes>
     </BrowserRouter>
   );
