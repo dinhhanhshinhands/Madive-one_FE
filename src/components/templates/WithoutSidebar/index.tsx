@@ -1,10 +1,10 @@
-import { Outlet } from 'react-router-dom';
+import { ReactNode } from 'react';
 
 import { Image, Row } from 'antd';
 
 import loginLogo from '@/assets/images/logo.png';
 
-const WithoutSidebar = () => {
+const WithoutSidebar = ({ children }: { children: ReactNode }) => {
   return (
     <div className="tw-relative">
       <div className="tw-absolute tw-top-5 tw-left-5">
@@ -20,7 +20,7 @@ const WithoutSidebar = () => {
           <h1>Madive ONE System</h1>
         </Row>
       </div>
-      <Outlet />
+      {children}
     </div>
   );
 };

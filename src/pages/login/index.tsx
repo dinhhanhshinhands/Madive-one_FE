@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
 
+import WithoutSidebar from '@/components/templates/WithoutSidebar';
+
 import { useLogin } from '@/apis/hooks/auth';
 import { useAuth } from '@/utils/hooks/useAuth';
 
@@ -71,56 +73,58 @@ const Login = ({ isAdmin = false }: IProps): JSX.Element => {
   }, []);
 
   return (
-    <div className="tw-flex tw-items-center tw-justify-center tw-h-screen">
-      <Form<LoginFormType>
-        className="tw-w-1/4"
-        form={form}
-        onFinish={onSubmitForm}
-        initialValues={loginFormInitValues}
-      >
-        <h2 className="tw-text-3xl tw-text-center">Madive {loginTranslation('Login')}</h2>
-        <Form.Item
-          name="email"
-          rules={[
-            { required: true, message: commonTranslation('This field is required') },
-            { type: 'email', message: commonTranslation('This field is not a valid email') },
-          ]}
+    <WithoutSidebar>
+      <div className="tw-flex tw-items-center tw-justify-center tw-h-screen">
+        <Form<LoginFormType>
+          className="tw-w-1/4"
+          form={form}
+          onFinish={onSubmitForm}
+          initialValues={loginFormInitValues}
         >
-          <Input
-            prefix={<MailOutlined className="tw-mr-2" />}
-            placeholder={`${loginTranslation('Enter your email address')} (ex: master@madive.co.kr)`}
-          />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[{ required: true, message: commonTranslation('This field is required') }]}
-        >
-          <Input.Password
-            prefix={<LockOutlined className="tw-mr-2" />}
-            placeholder={loginTranslation('Password')}
-            // placeholder={commonTranslation('capitalize', { value: loginTranslation('Password') })}
-          />
-        </Form.Item>
-        <Form.Item
-          name="rememberEmail"
-          valuePropName="checked"
-        >
-          <Checkbox>{loginTranslation('Remember Email')}</Checkbox>
-        </Form.Item>
-        <Form.Item>
-          <Button
-            className="tw-w-full tw-h-10 tw-capitalize"
-            htmlType="submit"
-            loading={isLoading}
-            disabled={isLoading}
-            type="primary"
+          <h2 className="tw-text-3xl tw-text-center">Madive {loginTranslation('Login')}</h2>
+          <Form.Item
+            name="email"
+            rules={[
+              { required: true, message: commonTranslation('This field is required') },
+              { type: 'email', message: commonTranslation('This field is not a valid email') },
+            ]}
           >
-            {loginTranslation('Login')}
-          </Button>
-          {!isAdmin && <div className="tw-mt-3">{loginTranslation('Find password')}</div>}
-        </Form.Item>
-      </Form>
-    </div>
+            <Input
+              prefix={<MailOutlined className="tw-mr-2" />}
+              placeholder={`${loginTranslation('Enter your email address')} (ex: master@madive.co.kr)`}
+            />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: commonTranslation('This field is required') }]}
+          >
+            <Input.Password
+              prefix={<LockOutlined className="tw-mr-2" />}
+              placeholder={loginTranslation('Password')}
+              // placeholder={commonTranslation('capitalize', { value: loginTranslation('Password') })}
+            />
+          </Form.Item>
+          <Form.Item
+            name="rememberEmail"
+            valuePropName="checked"
+          >
+            <Checkbox>{loginTranslation('Remember Email')}</Checkbox>
+          </Form.Item>
+          <Form.Item>
+            <Button
+              className="tw-w-full tw-h-10 tw-capitalize"
+              htmlType="submit"
+              loading={isLoading}
+              disabled={isLoading}
+              type="primary"
+            >
+              {loginTranslation('Login')}
+            </Button>
+            {!isAdmin && <div className="tw-mt-3">{loginTranslation('Find password')}</div>}
+          </Form.Item>
+        </Form>
+      </div>
+    </WithoutSidebar>
   );
 };
 

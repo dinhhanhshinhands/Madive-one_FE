@@ -31,8 +31,10 @@ generateApi({
     parser: 'typescript',
   },
 })
-  .then(({ files, configuration }) => {
-    files.forEach(({ content, name }) => {
+  // .then(({ files, configuration }) => {
+  .then(({ files }) => {
+    // files.forEach(({ content, name }) => {
+    files.forEach(({ content }) => {
       fs.writeFile(path as unknown as PathOrFileDescriptor, content, {} as NoParamCallback);
     });
   })
