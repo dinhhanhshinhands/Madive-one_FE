@@ -4,6 +4,8 @@ import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import resourcesToBackend from 'i18next-resources-to-backend';
 
+import { LANGUAGE_KEY } from '@/constants';
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -35,6 +37,9 @@ i18n
 
         return value;
       },
+    },
+    detection: {
+      lookupLocalStorage: LANGUAGE_KEY,
     },
   });
 

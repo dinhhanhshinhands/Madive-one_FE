@@ -8,9 +8,11 @@ import { Avatar, Badge, Button, Col, Dropdown, Image, Input, Row, Space } from '
 import enFlag from '@/assets/icons/en-flag-icon.png';
 import koFlag from '@/assets/icons/ko-flag-icon.png';
 
-const AdminHeader = () => {
+import { LANGUAGE_KEY } from '@/constants';
+
+const Header = () => {
   const { i18n } = useTranslation();
-  const [activeLang, setActiveLang] = useState<string>(localStorage.getItem('i18nextLng') || 'en');
+  const [activeLang, setActiveLang] = useState<string>(localStorage.getItem(LANGUAGE_KEY) || 'en');
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     setActiveLang(e.key);
@@ -60,15 +62,15 @@ const AdminHeader = () => {
         <Space size={16}>
           <Dropdown menu={menuProps}>
             <Button>
-              {activeLang === 'en' ? (
+              {activeLang === 'ko' ? (
                 <Image
-                  src={enFlag}
+                  src={koFlag}
                   width={24}
                   preview={false}
                 />
               ) : (
                 <Image
-                  src={koFlag}
+                  src={enFlag}
                   width={24}
                   preview={false}
                 />
@@ -100,4 +102,4 @@ const AdminHeader = () => {
   );
 };
 
-export default AdminHeader;
+export default Header;

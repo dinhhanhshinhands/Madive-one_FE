@@ -1,22 +1,24 @@
-import { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 import { Image, Layout } from 'antd';
 
-import { StyledSider } from '@/components/templates/WithSidebar/styled';
+import Header from '@/components/organisms/Header';
+import Sidebar from '@/components/organisms/Sidebar';
+import { StyledSider } from '@/components/templates/ProtectedLayout/styled';
 
 import sidebarLogo from '@/assets/images/logo.png';
 
-interface IWithSidebar {
-  sidebar: ReactNode;
-  header: ReactNode;
-  content: ReactNode;
-}
+import { useAuth } from '@/hooks/useAuth';
 
 const { Content } = Layout;
 
-const WithSidebar = ({ sidebar, header, content }: IWithSidebar) => {
+const ProtectedLayout = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated()) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -34,15 +36,17 @@ const WithSidebar = ({ sidebar, header, content }: IWithSidebar) => {
               navigate('/');
             }}
           />
-          {sidebar}
+          <Sidebar logoutPath="/" />
         </div>
       </StyledSider>
       <Layout>
-        {header}
-        <Content>{content}</Content>
+        <Header />
+        <Content>
+          <Outlet />
+        </Content>
       </Layout>
     </Layout>
   );
 };
 
-export default WithSidebar;
+export default ProtectedLayout;

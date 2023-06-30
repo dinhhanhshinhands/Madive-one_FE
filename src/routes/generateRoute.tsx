@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Route } from 'react-router-dom';
 
-import { RouteItem } from '@/utils/types/route';
+import { RouteItem } from '@/types/route';
 
 export const generateRoute = (routes: RouteItem[]): React.ReactNode => {
   return routes.map((route) => (

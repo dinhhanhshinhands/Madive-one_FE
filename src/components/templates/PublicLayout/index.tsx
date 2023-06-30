@@ -1,10 +1,18 @@
-import { ReactNode } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 
 import { Image, Row } from 'antd';
 
 import loginLogo from '@/assets/images/logo.png';
 
-const WithoutSidebar = ({ children }: { children: ReactNode }) => {
+import { useAuth } from '@/hooks/useAuth';
+
+const PublicLayout = () => {
+  const { isAuthenticated } = useAuth();
+
+  if (isAuthenticated()) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className="tw-relative">
       <div className="tw-absolute tw-top-5 tw-left-5">
@@ -20,9 +28,9 @@ const WithoutSidebar = ({ children }: { children: ReactNode }) => {
           <h1>Madive ONE System</h1>
         </Row>
       </div>
-      {children}
+      <Outlet />
     </div>
   );
 };
 
-export default WithoutSidebar;
+export default PublicLayout;

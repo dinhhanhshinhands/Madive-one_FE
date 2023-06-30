@@ -1,6 +1,6 @@
 import { Route } from 'react-router-dom';
 
-import { RouteItem } from '@/utils/types/route';
+import { RouteItem } from '@/types/route';
 
 export const renderRoute = (routes: RouteItem[]): React.ReactNode => {
   return routes.map((route) => {
@@ -12,17 +12,6 @@ export const renderRoute = (routes: RouteItem[]): React.ReactNode => {
         id={route.key}
       >
         {route.child && renderRoute(route.child)}
-        {/* {route.child && (
-          <Route
-            path="*"
-            element={
-              <Navigate
-                to={route.child[0].fullPath || '/login'}
-                replace
-              />
-            }
-          />
-        )} */}
       </Route>
     );
   });

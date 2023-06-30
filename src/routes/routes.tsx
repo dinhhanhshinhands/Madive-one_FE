@@ -1,4 +1,4 @@
-import { RouteItem } from '@/utils/types/route';
+import { RouteItem } from '@/types/route';
 
 import CompanyManagement from '@/pages/company/CompanyManagement';
 import CompanyRegister from '@/pages/company/CompanyRegister';
@@ -17,7 +17,7 @@ const publicRoutes: RouteItem[] = [
   {
     key: 'adminLogin',
     path: '/admin/login',
-    element: <Login isAdmin />,
+    element: <Login />,
   },
 ];
 
