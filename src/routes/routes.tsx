@@ -8,7 +8,7 @@ import StoreMenus from '@/pages/store/StoreMenus';
 import StoreRegister from '@/pages/store/StoreRegister';
 import { IRouteItem } from '@/routes/types';
 
-const routes: IRouteItem[] = [
+const adminRoutes: IRouteItem[] = [
   {
     path: '',
     fullPath: '',
@@ -17,6 +17,7 @@ const routes: IRouteItem[] = [
   {
     path: 'company',
     fullPath: 'company',
+    isShowIcon: true,
     translateKey: 'Company management',
     element: <Outlet />,
     children: [
@@ -57,6 +58,7 @@ const routes: IRouteItem[] = [
   {
     path: 'store',
     fullPath: 'store',
+    isShowIcon: true,
     translateKey: 'Store management',
     element: <Outlet />,
     children: [
@@ -97,12 +99,14 @@ const routes: IRouteItem[] = [
   {
     path: 'menu',
     fullPath: 'menu',
+    isShowIcon: true,
     translateKey: 'Menu management',
     element: <MenuManagement />,
   },
   {
     path: 'manager',
     fullPath: 'manager',
+    isShowIcon: true,
     translateKey: 'Business registration',
     element: <ManagerManagement />,
   },
@@ -113,4 +117,4 @@ const routes: IRouteItem[] = [
   },
 ];
 
-export { routes };
+export { adminRoutes };

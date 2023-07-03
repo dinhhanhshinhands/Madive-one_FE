@@ -1,7 +1,7 @@
 const theme = {
   token: {
     colorPrimary: '#646464',
-    wireframe: false,
+    wireframe: true,
   },
 };
 
