@@ -18,7 +18,7 @@ import { LANGUAGE_KEY } from '@/constants';
 import { QUERY_CACHE_TIME_DEFAULT } from '@/constants/apis';
 import Login from '@/pages/login';
 import { generateRoute } from '@/routes/generateRoute';
-import { routes } from '@/routes/routes';
+import { adminRoutes } from '@/routes/routes';
 
 import './App.css';
 
@@ -84,7 +84,7 @@ const App = () => {
                   </Suspense>
                 }
               >
-                {generateRoute(routes)}
+                {generateRoute(adminRoutes)}
               </Route>
             </Routes>
           </BrowserRouter>

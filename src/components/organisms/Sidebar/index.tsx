@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button } from 'antd';
 
-import AdminSidebar from '@/components/organisms/Sidebar/AdminSiderbar';
-import UserSidebar from '@/components/organisms/Sidebar/UserSiderbar';
+import AdminSidebar from '@/components/organisms/Sidebar/AdminSidebar';
+import UserSidebar from '@/components/organisms/Sidebar/UserSidebar';
 
 import { useAuth } from '@/hooks/useAuth';
 
