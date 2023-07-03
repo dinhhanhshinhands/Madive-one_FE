@@ -1,86 +1,108 @@
-import { RouteItem } from '@/types/route';
+import { Navigate, Outlet } from 'react-router-dom';
 
 import CompanyManagement from '@/pages/company/CompanyManagement';
 import CompanyRegister from '@/pages/company/CompanyRegister';
-import Login from '@/pages/login';
 import ManagerManagement from '@/pages/manager/ManagerManagement';
 import MenuManagement from '@/pages/menu/MenuManagement';
 import StoreMenus from '@/pages/store/StoreMenus';
 import StoreRegister from '@/pages/store/StoreRegister';
+import { IRouteItem } from '@/routes/types';
 
-const publicRoutes: RouteItem[] = [
+const routes: IRouteItem[] = [
   {
-    key: 'userLogin',
-    path: '/login',
-    element: <Login />,
+    path: '',
+    fullPath: '',
+    element: <Navigate to="company" />,
   },
   {
-    key: 'adminLogin',
-    path: '/admin/login',
-    element: <Login />,
-  },
-];
-
-const adminRoutes: RouteItem[] = [
-  {
-    key: 'companyManagement',
-    translateKey: '업체관리',
-    child: [
+    path: 'company',
+    fullPath: 'company',
+    element: <Outlet />,
+    children: [
       {
-        key: 'companyInformation',
-        translateKey: '업체정보',
+        path: '',
+        fullPath: 'company/',
+        element: (
+          <Navigate
+            to="management"
+            replace
+          />
+        ),
+      },
+      {
+        path: 'management',
+        fullPath: 'company/management',
         element: <CompanyManagement />,
-        path: 'company/list',
       },
       {
-        key: 'companyRegister',
-        translateKey: '업체등록',
+        path: 'register',
+        fullPath: 'company/register',
         element: <CompanyRegister />,
-        path: 'company/register',
+      },
+      {
+        path: '*',
+        fullPath: 'company/*',
+        element: (
+          <Navigate
+            to="management"
+            replace
+          />
+        ),
       },
     ],
   },
   {
-    key: 'storeMangement',
-    translateKey: '스토어 관리',
-    child: [
+    path: 'store',
+    fullPath: 'store',
+    element: <Outlet />,
+    children: [
       {
-        key: 'storeRegister',
-        translateKey: '스토어 등록',
+        path: '',
+        fullPath: 'store/',
+        element: (
+          <Navigate
+            to="register"
+            replace
+          />
+        ),
+      },
+      {
+        path: 'register',
+        fullPath: 'store/register',
         element: <StoreRegister />,
-        path: 'store/register',
       },
       {
-        key: 'storeMenus',
-        translateKey: '스토어 메뉴 일괄등록',
+        path: 'menu',
+        fullPath: 'store/menu',
         element: <StoreMenus />,
-        path: 'store/menu',
+      },
+      {
+        path: '*',
+        fullPath: 'store/*',
+        element: (
+          <Navigate
+            to="register"
+            replace
+          />
+        ),
       },
     ],
   },
   {
-    key: 'menuManagement',
-    translateKey: '메뉴관리',
     path: 'menu',
+    fullPath: 'menu',
     element: <MenuManagement />,
   },
   {
-    key: 'managerManagmenet',
-    translateKey: '관리자 관리',
     path: 'manager',
+    fullPath: 'manager',
     element: <ManagerManagement />,
+  },
+  {
+    path: '*',
+    fullPath: '*',
+    element: <Navigate to="/" />,
   },
 ];
 
-const paths = {
-  admin: {
-    index: '/admin',
-    login: '/admin/login',
-  },
-  user: {
-    index: '/',
-    login: '/login',
-  },
-};
-
-export { adminRoutes, paths, publicRoutes };
+export { routes };

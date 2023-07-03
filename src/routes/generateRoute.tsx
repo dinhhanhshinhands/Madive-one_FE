@@ -1,21 +1,62 @@
-import { Fragment } from 'react';
 import { Route } from 'react-router-dom';
 
-import { RouteItem } from '@/types/route';
+import { IRouteItem, IScreenPermision } from '@/routes/types';
 
-export const generateRoute = (routes: RouteItem[]): React.ReactNode => {
-  return routes.map((route) => (
-    <Fragment key={route.key}>
-      {route.path && (
+const screenPermissionTest: IScreenPermision[] = [
+  {
+    path: 'company',
+    isShow: true,
+  },
+  {
+    path: 'company/management',
+    isShow: true,
+  },
+  {
+    path: 'company/register',
+    isShow: true,
+  },
+  {
+    path: 'store',
+    isShow: true,
+  },
+  {
+    path: 'store/register',
+    isShow: true,
+  },
+  {
+    path: 'store/menu',
+    isShow: true,
+  },
+  {
+    path: 'menu',
+    isShow: true,
+  },
+  {
+    path: 'manager',
+    isShow: true,
+  },
+];
+
+export const checkShowRoute = (route: IRouteItem, screenPermission: IScreenPermision[]) => {
+  if (route.path === '' || route.path === '*') return true;
+
+  return !!screenPermission.find((item) => item.path === route.fullPath && item.isShow);
+};
+
+export const generateRoute = (routes: IRouteItem[]) => {
+  return routes.map((route) => {
+    if (checkShowRoute(route, screenPermissionTest)) {
+      return (
         <Route
           path={route.path}
           element={route.element}
-          key={route.path}
+          key={route.fullPath}
         >
-          {route.child?.length && generateRoute(route.child)}
+          {route?.children && generateRoute(route.children)}
         </Route>
-      )}
-      {route.child?.length && generateRoute(route.child)}
-    </Fragment>
-  ));
+      );
+    }
+
+    return null;
+  });
 };

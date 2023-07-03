@@ -8,6 +8,7 @@ import en from 'antd/locale/en_US';
 import kr from 'antd/locale/ko_KR';
 import { ThemeProvider } from 'styled-components';
 
+import Loader from '@/components/molecules/Loader';
 import ProtectedLayout from '@/components/templates/ProtectedLayout';
 import PublicLayout from '@/components/templates/PublicLayout';
 
@@ -15,13 +16,9 @@ import themeConfig from '@/configs/theme';
 
 import { LANGUAGE_KEY } from '@/constants';
 import { QUERY_CACHE_TIME_DEFAULT } from '@/constants/apis';
-import CompanyManagement from '@/pages/company/CompanyManagement';
-import CompanyRegister from '@/pages/company/CompanyRegister';
 import Login from '@/pages/login';
-import ManagerManagement from '@/pages/manager/ManagerManagement';
-import MenuManagement from '@/pages/menu/MenuManagement';
-import StoreMenus from '@/pages/store/StoreMenus';
-import StoreRegister from '@/pages/store/StoreRegister';
+import { generateRoute } from '@/routes/generateRoute';
+import { routes } from '@/routes/routes';
 
 import './App.css';
 
@@ -60,7 +57,7 @@ const App = () => {
               <Route
                 path="/login"
                 element={
-                  <Suspense fallback={<>Loading</>}>
+                  <Suspense fallback={<Loader />}>
                     <PublicLayout />
                   </Suspense>
                 }
@@ -69,47 +66,25 @@ const App = () => {
                   index
                   element={<Login />}
                 />
+                <Route
+                  path="*"
+                  element={
+                    <Navigate
+                      to="/"
+                      replace
+                    />
+                  }
+                />
               </Route>
               <Route
                 path="/"
                 element={
-                  <Suspense fallback={<>Loading</>}>
+                  <Suspense fallback={<Loader />}>
                     <ProtectedLayout />
                   </Suspense>
                 }
               >
-                <Route
-                  path="company/management"
-                  element={<CompanyManagement />}
-                />
-                <Route
-                  path="company/register"
-                  element={<CompanyRegister />}
-                />
-                <Route
-                  path="store/register"
-                  element={<StoreRegister />}
-                />
-                <Route
-                  path="store/menu"
-                  element={<StoreMenus />}
-                />
-                <Route
-                  path="menu"
-                  element={<MenuManagement />}
-                />
-                <Route
-                  path="manager"
-                  element={<ManagerManagement />}
-                />
-                <Route
-                  path="/"
-                  element={<Navigate to="company/management" />}
-                />
-                <Route
-                  path="*"
-                  element={<Navigate to="company/management" />}
-                />
+                {generateRoute(routes)}
               </Route>
             </Routes>
           </BrowserRouter>
