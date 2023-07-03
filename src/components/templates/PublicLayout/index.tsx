@@ -14,8 +14,8 @@ const PublicLayout = () => {
   }
 
   return (
-    <div className="tw-relative">
-      <div className="tw-absolute tw-top-5 tw-left-5">
+    <div className="relative">
+      <div className="absolute top-5 left-5">
         <Row
           justify="center"
           align="top"

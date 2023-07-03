@@ -46,11 +46,11 @@ const Header = () => {
   };
 
   return (
-    <header className="tw-h-16 tw-bg-neutral-600 tw-p-3 tw-text-white">
+    <header className="h-16 bg-neutral-600 p-3 text-white">
       <Row
         justify="space-between"
         align="middle"
-        className="tw-h-full"
+        className="h-full"
       >
         <Col span={8}>
           <Input

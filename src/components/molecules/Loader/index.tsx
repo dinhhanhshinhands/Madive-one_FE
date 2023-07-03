@@ -1,8 +1,8 @@
 import { Spin } from 'antd';
 
-const Loader = () => {
+const Loader = ({ screen = false }: { screen?: boolean }) => {
   return (
-    <div className="tw-w-full tw-h-full tw-flex tw-justify-center tw-items-center">
+    <div className={`${screen ? 'w-screen h-screen' : 'w-full h-full'} flex justify-center items-center`}>
       <Spin />
     </div>
   );

@@ -57,7 +57,7 @@ const App = () => {
               <Route
                 path="/login"
                 element={
-                  <Suspense fallback={<Loader />}>
+                  <Suspense fallback={<Loader screen />}>
                     <PublicLayout />
                   </Suspense>
                 }
@@ -79,7 +79,7 @@ const App = () => {
               <Route
                 path="/"
                 element={
-                  <Suspense fallback={<Loader />}>
+                  <Suspense fallback={<Loader screen />}>
                     <ProtectedLayout />
                   </Suspense>
                 }

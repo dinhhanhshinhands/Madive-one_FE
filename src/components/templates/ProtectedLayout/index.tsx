@@ -24,11 +24,11 @@ const ProtectedLayout = () => {
     <Layout style={{ minHeight: '100vh' }}>
       <StyledSider
         width="300"
-        className="tw-p-4"
+        className="p-4"
       >
-        <div className="tw-flex tw-flex-col">
+        <div className="flex flex-col">
           <Image
-            className="tw-cursor-pointer"
+            className="cursor-pointer"
             src={sidebarLogo}
             width={60}
             preview={false}

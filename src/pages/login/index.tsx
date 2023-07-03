@@ -66,14 +66,14 @@ const Login = (): JSX.Element => {
   }, []);
 
   return (
-    <div className="tw-flex tw-items-center tw-justify-center tw-h-screen">
+    <div className="flex items-center justify-center h-screen">
       <Form<ILoginForm>
-        className="tw-w-1/4"
+        className="w-1/4"
         form={form}
         onFinish={onSubmitForm}
         initialValues={initialValues}
       >
-        <h2 className="tw-text-3xl tw-text-center">Madive {loginTranslation('Login')}</h2>
+        <h2 className="text-3xl text-center">Madive {loginTranslation('Login')}</h2>
         <Form.Item
           name="email"
           rules={[
@@ -82,7 +82,7 @@ const Login = (): JSX.Element => {
           ]}
         >
           <Input
-            prefix={<MailOutlined className="tw-mr-2" />}
+            prefix={<MailOutlined className="mr-2" />}
             placeholder={`${loginTranslation('Enter your email address')} (ex: master@madive.co.kr)`}
           />
         </Form.Item>
@@ -91,7 +91,7 @@ const Login = (): JSX.Element => {
           rules={[{ required: true, message: commonTranslation('This field is required') }]}
         >
           <Input.Password
-            prefix={<LockOutlined className="tw-mr-2" />}
+            prefix={<LockOutlined className="mr-2" />}
             placeholder={loginTranslation('Password')}
             // placeholder={commonTranslation('capitalize', { value: loginTranslation('Password') })}
           />
@@ -104,7 +104,7 @@ const Login = (): JSX.Element => {
         </Form.Item>
         <Form.Item>
           <Button
-            className="tw-w-full tw-h-10 tw-capitalize"
+            className="w-full h-10 capitalize"
             htmlType="submit"
             loading={isLoading}
             disabled={isLoading}

@@ -82,13 +82,13 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="tw-flex tw-flex-row tw-my-2 tw-items-center tw-justify-between">
+      <div className="flex flex-row my-2 items-center justify-between">
         <div>
           <div>Madive-admin</div>
-          <div className="tw-text-xs">Sandbox Store</div>
+          <div className="text-xs">Sandbox Store</div>
         </div>
         <Button
-          className="tw-capitalize"
+          className="capitalize"
           onClick={onLogout}
         >
           {t('logout')}
