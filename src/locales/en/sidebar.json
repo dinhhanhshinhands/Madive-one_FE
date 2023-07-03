@@ -2,11 +2,11 @@
   "logout": "logout",
   "Manager menu": "Manager menu",
   "Company management": "Company management",
-  "Store management": "Store management",
-  "Menu management": "Menu management",
-  "Manager management": "Manager management",
   "Company information": "Company information",
   "Business registration": "Business registration",
+  "Store management": "Store management",
   "Store registration": "Store registration",
-  "Store menu batch registration": "Store menu batch registration"
+  "Store batch registration": "Store batch registration",
+  "Menu management": "Menu management",
+  "Manager management": "Manager management"
 }

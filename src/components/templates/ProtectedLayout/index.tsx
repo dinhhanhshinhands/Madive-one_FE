@@ -36,7 +36,7 @@ const ProtectedLayout = () => {
               navigate('/');
             }}
           />
-          <Sidebar logoutPath="/" />
+          <Sidebar />
         </div>
       </StyledSider>
       <Layout>

@@ -1,57 +1,82 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+import { FolderOpenOutlined, FolderOutlined } from '@ant-design/icons';
 import { Button, MenuProps } from 'antd';
+import { TFunction } from 'i18next';
 
 import { StyledCollapse, StyledMenu } from '@/components/organisms/Sidebar/styled';
 
 import { useAuth } from '@/hooks/useAuth';
+import { routes } from '@/routes/routes';
+import { IRouteItem } from '@/routes/types';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
-const generateItem = (
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[]
-): MenuItem => {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
+const generateMenuItem = (data: IRouteItem[], transFn: TFunction<'sidebar'>, openedKey: string) => {
+  const newData: MenuItem[] = [];
+
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].path === '' || data[i].path === '*') continue;
+
+    let children: MenuItem[] = [];
+
+    if (data[i].children) {
+      children = generateMenuItem(data[i].children || [], transFn, openedKey);
+    }
+
+    newData.push({
+      key: data[i].fullPath,
+      icon: children.length ? openedKey === data[i].fullPath ? <FolderOpenOutlined /> : <FolderOutlined /> : null,
+      children: children.length ? children : undefined,
+      label: transFn(data[i].translateKey || ''),
+    });
+  }
+
+  return newData;
 };
 
-const Sidebar = ({ logoutPath }: { logoutPath: string }) => {
+const Sidebar = () => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const location = useLocation();
   const { t } = useTranslation('sidebar');
+  const { logout } = useAuth();
 
-  const items: MenuItem[] = [
-    generateItem(t('Company management'), '1', null, [
-      generateItem(t('Company information'), '2'),
-      generateItem(t('Business registration'), '3'),
-    ]),
-    generateItem(t('Store management'), '4', null, [
-      generateItem(t('Company information'), '5'),
-      generateItem(t('Business registration'), '6'),
-    ]),
-    generateItem(t('Menu management'), '7'),
-    generateItem(t('Manager management'), '8'),
-  ];
+  const checkOpenKey = (): string => {
+    const pathArr = location.pathname.split('/').filter((item) => item !== '');
+
+    if (pathArr.length > 1) return pathArr[0];
+
+    return '';
+  };
+
+  const checkSelectedKey = (): string => {
+    const pathArr = location.pathname.split('/').filter((item) => item !== '');
+
+    if (pathArr.length > 1) return pathArr.join('/');
+    if (pathArr.length === 1) return pathArr[0];
+
+    return '';
+  };
 
   const onLogout = () => {
     logout();
-    navigate(logoutPath, { replace: true });
+    navigate('/', { replace: true });
   };
+
+  const onMenuClick: MenuProps['onClick'] = (e) => {
+    navigate(e.key);
+  };
+
+  const items = generateMenuItem(routes, t, checkOpenKey());
 
   const menu = (
     <StyledMenu
-      defaultOpenKeys={['1']}
-      defaultSelectedKeys={['2']}
+      defaultOpenKeys={[checkOpenKey()]}
+      defaultSelectedKeys={[checkSelectedKey()]}
       mode="inline"
       items={items}
+      onClick={onMenuClick}
     />
   );
 
@@ -71,9 +96,9 @@ const Sidebar = ({ logoutPath }: { logoutPath: string }) => {
       </div>
 
       <StyledCollapse
-        defaultActiveKey={['1']}
+        defaultActiveKey={['Manager menu']}
         expandIconPosition="end"
-        items={[{ key: '1', label: t('Manager menu'), children: <>{menu}</> }]}
+        items={[{ key: 'Manager menu', label: t('Manager menu'), children: <>{menu}</> }]}
       />
     </>
   );

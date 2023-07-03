@@ -17,6 +17,7 @@ const routes: IRouteItem[] = [
   {
     path: 'company',
     fullPath: 'company',
+    translateKey: 'Company management',
     element: <Outlet />,
     children: [
       {
@@ -32,11 +33,13 @@ const routes: IRouteItem[] = [
       {
         path: 'management',
         fullPath: 'company/management',
+        translateKey: 'Company information',
         element: <CompanyManagement />,
       },
       {
         path: 'register',
         fullPath: 'company/register',
+        translateKey: 'Business registration',
         element: <CompanyRegister />,
       },
       {
@@ -54,6 +57,7 @@ const routes: IRouteItem[] = [
   {
     path: 'store',
     fullPath: 'store',
+    translateKey: 'Store management',
     element: <Outlet />,
     children: [
       {
@@ -69,11 +73,13 @@ const routes: IRouteItem[] = [
       {
         path: 'register',
         fullPath: 'store/register',
+        translateKey: 'Store registration',
         element: <StoreRegister />,
       },
       {
         path: 'menu',
         fullPath: 'store/menu',
+        translateKey: 'Store batch registration',
         element: <StoreMenus />,
       },
       {
@@ -91,11 +97,13 @@ const routes: IRouteItem[] = [
   {
     path: 'menu',
     fullPath: 'menu',
+    translateKey: 'Menu management',
     element: <MenuManagement />,
   },
   {
     path: 'manager',
     fullPath: 'manager',
+    translateKey: 'Business registration',
     element: <ManagerManagement />,
   },
   {

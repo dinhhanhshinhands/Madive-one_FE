@@ -52,7 +52,7 @@ export const generateRoute = (routes: IRouteItem[]) => {
           element={route.element}
           key={route.fullPath}
         >
-          {route?.children && generateRoute(route.children)}
+          {route.children && route.children.length && generateRoute(route.children)}
         </Route>
       );
     }
