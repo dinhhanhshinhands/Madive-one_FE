@@ -47,7 +47,7 @@ const Sidebar = () => {
 
     if (pathArr.length > 1) return pathArr[0];
 
-    return '';
+    return 'company';
   };
 
   const checkSelectedKey = (): string => {
@@ -56,7 +56,7 @@ const Sidebar = () => {
     if (pathArr.length > 1) return pathArr.join('/');
     if (pathArr.length === 1) return pathArr[0];
 
-    return '';
+    return 'company/management';
   };
 
   const onLogout = () => {
